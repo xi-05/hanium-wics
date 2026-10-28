@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1783243137077,
+      "tag": "0000_abnormal_iron_monger",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1783243258978,
+      "tag": "0001_cloudy_rhodey",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1792309265401,
+      "tag": "0002_tough_doctor_faustus",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1792309479890,
+      "tag": "0003_soft_stephen_strange",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1793181959817,
+      "tag": "0004_cold_mojo",
+      "breakpoints": true
+    }
+  ]
+}
