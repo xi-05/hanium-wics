@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WICS 탐사 로봇 관제</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>WICS <small>탐사 로봇 관제</small></h1>
+  <nav id="tabs">
+    <button data-tab="dash" class="on">대시보드</button>
+    <button data-tab="map">지도</button>
+    <button data-tab="cam">카메라/깊이</button>
+    <button data-tab="estop" class="danger-tab">E-STOP</button>
+  </nav>
+  <div id="chain">
+    <span class="pill" id="p-events" title="terra.events.v1 WebSocket">이벤트 ●</span>
+    <span class="pill" id="p-node" title="로봇 노드">노드 ●</span>
+    <span class="pill" id="p-module" title="rdk-bridge 모듈">브리지 ●</span>
+  </div>
+</header>
+
+<section id="login" class="card">
+  <h2>로그인</h2>
+  <form id="login-form">
+    <label>이메일 <input id="email" type="email" autocomplete="username" required></label>
+    <label>비밀번호 <input id="password" type="password" autocomplete="current-password" required></label>
+    <button type="submit">로그인</button>
+    <span id="login-msg" class="muted"></span>
+  </form>
+  <p class="muted">토큰은 이 탭의 메모리에만 있고 저장하지 않습니다. 권한·감사는 이번 범위에서 구현하지 않았습니다(설계 문서만).</p>
+</section>
+
+<main id="app" hidden>
+  <section id="tab-dash" class="tab">
+    <div class="grid">
+      <div class="card"><h2>연결 사슬</h2><table id="chain-table"></table></div>
+      <div class="card"><h2>로봇</h2><div id="robot-info" class="muted">-</div></div>
+    </div>
+    <div class="card"><h2>리소스 신선도 <small class="muted">(sequence·stamp 진행으로 판정)</small></h2>
+      <table id="res-table"><thead><tr><th>리소스</th><th>상태</th><th>마지막 진행</th><th>Hz</th><th>sequence</th><th>어댑터</th><th>Terra 카탈로그</th></tr></thead><tbody></tbody></table>
+    </div>
+    <div class="card"><h2>이벤트 로그 <small class="muted">terra.events.v1</small></h2><pre id="event-log"></pre></div>
+  </section>
+
+  <section id="tab-map" class="tab" hidden>
+    <div class="card">
+      <div class="bar"><span id="map-banner" class="banner"></span><span class="muted" id="map-meta"></span></div>
+      <canvas id="map-canvas" width="720" height="720"></canvas>
+    </div>
+  </section>
+
+  <section id="tab-cam" class="tab" hidden>
+    <div class="grid">
+      <div class="card"><h2>좌측 카메라</h2><div class="banner" id="img-banner"></div><canvas id="img-canvas" width="640" height="352"></canvas><div class="muted" id="img-meta"></div></div>
+      <div class="card"><h2>깊이</h2><div class="banner" id="depth-banner"></div><canvas id="depth-canvas" width="640" height="352"></canvas><div class="muted" id="depth-meta"></div></div>
+    </div>
+    <p class="muted">2단계 리소스: 1~2 Hz로 제한. 신선하지 않으면 마지막 프레임을 보여주지 않습니다.</p>
+  </section>
+
+  <section id="tab-estop" class="tab" hidden>
+    <div class="card estop">
+      <h2>긴급 정지</h2>
+      <p>정지 <b>요청</b>을 서버 → 현장 → 로봇 컨트롤러 어댑터까지 전달하고 수신 확인을 표시합니다. 실제 정지는 로봇 MCU가 수행하며, 이 화면의 성공 표시는 "정지 완료"가 아닙니다.</p>
+      <input id="estop-reason" placeholder="사유 (선택)" maxlength="100">
+      <button id="estop-btn" class="estop-btn">E-STOP 요청</button>
+      <div id="estop-result"></div>
+      <h3>요청 기록 (이 탭)</h3><pre id="estop-log"></pre>
+    </div>
+  </section>
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>

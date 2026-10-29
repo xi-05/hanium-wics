@@ -1,0 +1,1045 @@
+{
+  "$schema": "../../../../../docs/contracts/api/schemas/terra-api-contract-v1.schema.json",
+  "authentication": {
+    "workload-identity": {
+      "description": "Module Runtime이 실행 instance에 발급한 단기 Workload Identity를 사용합니다.",
+      "type": "workload-identity"
+    }
+  },
+  "contractId": "lab.hanium.rdk-bridge.api",
+  "contractVersion": "0.1.0",
+  "defaultLocale": "ko-KR",
+  "description": "이 계약이 Gateway route의 단일 원본입니다. operation의 bindings에 적은 method·path가 그대로 게시되고 security.permissions가 route 권한이 되므로, 표면을 바꿀 때는 코드가 아니라 이 파일을 먼저 고칩니다.",
+  "errors": {
+    "RDK_BRIDGE_UNAVAILABLE": {
+      "description": "모듈이 아직 준비되지 않았거나 내부 상태가 손상되어 요청을 처리할 수 없습니다.",
+      "retryable": true,
+      "title": "모듈 사용 불가"
+    }
+  },
+  "operations": {
+    "lab.hanium.rdk-bridge.status.get": {
+      "authoring": {
+        "studioVisible": false,
+        "functionNode": false,
+        "group": "RDK",
+        "recommendedLabel": "상태",
+        "keywords": [
+          "rdk",
+          "status"
+        ],
+        "outputPorts": []
+      },
+      "availability": {
+        "hostRoles": [
+          "leaf-node"
+        ],
+        "products": [
+          "leaf"
+        ],
+        "requiresProviderState": "ready",
+        "scopes": [
+          "local",
+          "node"
+        ]
+      },
+      "bindings": [
+        {
+          "type": "gateway-http",
+          "method": "GET",
+          "path": "/api/modules/lab.hanium.rdk-bridge/v1/status",
+          "successStatus": 200
+        }
+      ],
+      "category": "ros",
+      "description": "상태 스냅샷과 신선도 판정을 반환합니다.",
+      "errors": [
+        "RDK_BRIDGE_UNAVAILABLE"
+      ],
+      "execution": {
+        "cancellation": "before-dispatch",
+        "concurrency": {
+          "mode": "unlimited"
+        },
+        "confirmation": {
+          "mode": "none"
+        },
+        "idempotency": {
+          "mode": "safe"
+        },
+        "retry": {
+          "backoff": "exponential",
+          "maximumAttempts": 3,
+          "mode": "safe-only"
+        },
+        "risk": "read",
+        "timeoutMs": {
+          "default": 3000,
+          "maximum": 8000
+        }
+      },
+      "input": {
+        "schema": {
+          "type": "object",
+          "additionalProperties": false
+        },
+        "examples": [
+          {
+            "name": "기본",
+            "value": {}
+          }
+        ]
+      },
+      "output": {
+        "mode": "immediate",
+        "schema": {
+          "type": "object"
+        },
+        "examples": [
+          {
+            "name": "예",
+            "value": {
+              "resource": "x",
+              "state": "fresh"
+            }
+          }
+        ]
+      },
+      "security": {
+        "audit": {
+          "required": false
+        },
+        "authentication": [
+          "workload-identity"
+        ],
+        "dataClassification": "internal",
+        "permissions": [
+          "node.read"
+        ],
+        "workloadPermissions": []
+      },
+      "semantics": {
+        "postconditions": [],
+        "preconditions": [],
+        "processing": [
+          {
+            "id": "read",
+            "description": "상태 스냅샷과 신선도 판정을 반환합니다.",
+            "transaction": "none"
+          }
+        ],
+        "sideEffects": []
+      },
+      "status": "stable",
+      "summary": "상태 스냅샷과 신선도 판정을 반환합니다.",
+      "tags": [
+        "ros",
+        "status"
+      ],
+      "title": "상태",
+      "version": "1.0.0"
+    },
+    "lab.hanium.rdk-bridge.scan.get": {
+      "authoring": {
+        "studioVisible": false,
+        "functionNode": false,
+        "group": "RDK",
+        "recommendedLabel": "LiDAR 스캔",
+        "keywords": [
+          "rdk",
+          "scan"
+        ],
+        "outputPorts": []
+      },
+      "availability": {
+        "hostRoles": [
+          "leaf-node"
+        ],
+        "products": [
+          "leaf"
+        ],
+        "requiresProviderState": "ready",
+        "scopes": [
+          "local",
+          "node"
+        ]
+      },
+      "bindings": [
+        {
+          "type": "gateway-http",
+          "method": "GET",
+          "path": "/api/modules/lab.hanium.rdk-bridge/v1/scan",
+          "successStatus": 200
+        }
+      ],
+      "category": "ros",
+      "description": "LiDAR 스캔 스냅샷과 신선도 판정을 반환합니다.",
+      "errors": [
+        "RDK_BRIDGE_UNAVAILABLE"
+      ],
+      "execution": {
+        "cancellation": "before-dispatch",
+        "concurrency": {
+          "mode": "unlimited"
+        },
+        "confirmation": {
+          "mode": "none"
+        },
+        "idempotency": {
+          "mode": "safe"
+        },
+        "retry": {
+          "backoff": "exponential",
+          "maximumAttempts": 3,
+          "mode": "safe-only"
+        },
+        "risk": "read",
+        "timeoutMs": {
+          "default": 3000,
+          "maximum": 8000
+        }
+      },
+      "input": {
+        "schema": {
+          "type": "object",
+          "additionalProperties": false
+        },
+        "examples": [
+          {
+            "name": "기본",
+            "value": {}
+          }
+        ]
+      },
+      "output": {
+        "mode": "immediate",
+        "schema": {
+          "type": "object"
+        },
+        "examples": [
+          {
+            "name": "예",
+            "value": {
+              "resource": "x",
+              "state": "fresh"
+            }
+          }
+        ]
+      },
+      "security": {
+        "audit": {
+          "required": false
+        },
+        "authentication": [
+          "workload-identity"
+        ],
+        "dataClassification": "internal",
+        "permissions": [
+          "node.read"
+        ],
+        "workloadPermissions": []
+      },
+      "semantics": {
+        "postconditions": [],
+        "preconditions": [],
+        "processing": [
+          {
+            "id": "read",
+            "description": "LiDAR 스캔 스냅샷과 신선도 판정을 반환합니다.",
+            "transaction": "none"
+          }
+        ],
+        "sideEffects": []
+      },
+      "status": "stable",
+      "summary": "LiDAR 스캔 스냅샷과 신선도 판정을 반환합니다.",
+      "tags": [
+        "ros",
+        "scan"
+      ],
+      "title": "LiDAR 스캔",
+      "version": "1.0.0"
+    },
+    "lab.hanium.rdk-bridge.map.get": {
+      "authoring": {
+        "studioVisible": false,
+        "functionNode": false,
+        "group": "RDK",
+        "recommendedLabel": "지도",
+        "keywords": [
+          "rdk",
+          "map"
+        ],
+        "outputPorts": []
+      },
+      "availability": {
+        "hostRoles": [
+          "leaf-node"
+        ],
+        "products": [
+          "leaf"
+        ],
+        "requiresProviderState": "ready",
+        "scopes": [
+          "local",
+          "node"
+        ]
+      },
+      "bindings": [
+        {
+          "type": "gateway-http",
+          "method": "GET",
+          "path": "/api/modules/lab.hanium.rdk-bridge/v1/map",
+          "successStatus": 200
+        }
+      ],
+      "category": "ros",
+      "description": "지도 스냅샷과 신선도 판정을 반환합니다.",
+      "errors": [
+        "RDK_BRIDGE_UNAVAILABLE"
+      ],
+      "execution": {
+        "cancellation": "before-dispatch",
+        "concurrency": {
+          "mode": "unlimited"
+        },
+        "confirmation": {
+          "mode": "none"
+        },
+        "idempotency": {
+          "mode": "safe"
+        },
+        "retry": {
+          "backoff": "exponential",
+          "maximumAttempts": 3,
+          "mode": "safe-only"
+        },
+        "risk": "read",
+        "timeoutMs": {
+          "default": 3000,
+          "maximum": 8000
+        }
+      },
+      "input": {
+        "schema": {
+          "type": "object",
+          "additionalProperties": false
+        },
+        "examples": [
+          {
+            "name": "기본",
+            "value": {}
+          }
+        ]
+      },
+      "output": {
+        "mode": "immediate",
+        "schema": {
+          "type": "object"
+        },
+        "examples": [
+          {
+            "name": "예",
+            "value": {
+              "resource": "x",
+              "state": "fresh"
+            }
+          }
+        ]
+      },
+      "security": {
+        "audit": {
+          "required": false
+        },
+        "authentication": [
+          "workload-identity"
+        ],
+        "dataClassification": "internal",
+        "permissions": [
+          "node.read"
+        ],
+        "workloadPermissions": []
+      },
+      "semantics": {
+        "postconditions": [],
+        "preconditions": [],
+        "processing": [
+          {
+            "id": "read",
+            "description": "지도 스냅샷과 신선도 판정을 반환합니다.",
+            "transaction": "none"
+          }
+        ],
+        "sideEffects": []
+      },
+      "status": "stable",
+      "summary": "지도 스냅샷과 신선도 판정을 반환합니다.",
+      "tags": [
+        "ros",
+        "map"
+      ],
+      "title": "지도",
+      "version": "1.0.0"
+    },
+    "lab.hanium.rdk-bridge.pose.get": {
+      "authoring": {
+        "studioVisible": false,
+        "functionNode": false,
+        "group": "RDK",
+        "recommendedLabel": "위치",
+        "keywords": [
+          "rdk",
+          "pose"
+        ],
+        "outputPorts": []
+      },
+      "availability": {
+        "hostRoles": [
+          "leaf-node"
+        ],
+        "products": [
+          "leaf"
+        ],
+        "requiresProviderState": "ready",
+        "scopes": [
+          "local",
+          "node"
+        ]
+      },
+      "bindings": [
+        {
+          "type": "gateway-http",
+          "method": "GET",
+          "path": "/api/modules/lab.hanium.rdk-bridge/v1/pose",
+          "successStatus": 200
+        }
+      ],
+      "category": "ros",
+      "description": "위치 스냅샷과 신선도 판정을 반환합니다.",
+      "errors": [
+        "RDK_BRIDGE_UNAVAILABLE"
+      ],
+      "execution": {
+        "cancellation": "before-dispatch",
+        "concurrency": {
+          "mode": "unlimited"
+        },
+        "confirmation": {
+          "mode": "none"
+        },
+        "idempotency": {
+          "mode": "safe"
+        },
+        "retry": {
+          "backoff": "exponential",
+          "maximumAttempts": 3,
+          "mode": "safe-only"
+        },
+        "risk": "read",
+        "timeoutMs": {
+          "default": 3000,
+          "maximum": 8000
+        }
+      },
+      "input": {
+        "schema": {
+          "type": "object",
+          "additionalProperties": false
+        },
+        "examples": [
+          {
+            "name": "기본",
+            "value": {}
+          }
+        ]
+      },
+      "output": {
+        "mode": "immediate",
+        "schema": {
+          "type": "object"
+        },
+        "examples": [
+          {
+            "name": "예",
+            "value": {
+              "resource": "x",
+              "state": "fresh"
+            }
+          }
+        ]
+      },
+      "security": {
+        "audit": {
+          "required": false
+        },
+        "authentication": [
+          "workload-identity"
+        ],
+        "dataClassification": "internal",
+        "permissions": [
+          "node.read"
+        ],
+        "workloadPermissions": []
+      },
+      "semantics": {
+        "postconditions": [],
+        "preconditions": [],
+        "processing": [
+          {
+            "id": "read",
+            "description": "위치 스냅샷과 신선도 판정을 반환합니다.",
+            "transaction": "none"
+          }
+        ],
+        "sideEffects": []
+      },
+      "status": "stable",
+      "summary": "위치 스냅샷과 신선도 판정을 반환합니다.",
+      "tags": [
+        "ros",
+        "pose"
+      ],
+      "title": "위치",
+      "version": "1.0.0"
+    },
+    "lab.hanium.rdk-bridge.imu.get": {
+      "authoring": {
+        "studioVisible": false,
+        "functionNode": false,
+        "group": "RDK",
+        "recommendedLabel": "IMU",
+        "keywords": [
+          "rdk",
+          "imu"
+        ],
+        "outputPorts": []
+      },
+      "availability": {
+        "hostRoles": [
+          "leaf-node"
+        ],
+        "products": [
+          "leaf"
+        ],
+        "requiresProviderState": "ready",
+        "scopes": [
+          "local",
+          "node"
+        ]
+      },
+      "bindings": [
+        {
+          "type": "gateway-http",
+          "method": "GET",
+          "path": "/api/modules/lab.hanium.rdk-bridge/v1/imu",
+          "successStatus": 200
+        }
+      ],
+      "category": "ros",
+      "description": "IMU 스냅샷과 신선도 판정을 반환합니다.",
+      "errors": [
+        "RDK_BRIDGE_UNAVAILABLE"
+      ],
+      "execution": {
+        "cancellation": "before-dispatch",
+        "concurrency": {
+          "mode": "unlimited"
+        },
+        "confirmation": {
+          "mode": "none"
+        },
+        "idempotency": {
+          "mode": "safe"
+        },
+        "retry": {
+          "backoff": "exponential",
+          "maximumAttempts": 3,
+          "mode": "safe-only"
+        },
+        "risk": "read",
+        "timeoutMs": {
+          "default": 3000,
+          "maximum": 8000
+        }
+      },
+      "input": {
+        "schema": {
+          "type": "object",
+          "additionalProperties": false
+        },
+        "examples": [
+          {
+            "name": "기본",
+            "value": {}
+          }
+        ]
+      },
+      "output": {
+        "mode": "immediate",
+        "schema": {
+          "type": "object"
+        },
+        "examples": [
+          {
+            "name": "예",
+            "value": {
+              "resource": "x",
+              "state": "fresh"
+            }
+          }
+        ]
+      },
+      "security": {
+        "audit": {
+          "required": false
+        },
+        "authentication": [
+          "workload-identity"
+        ],
+        "dataClassification": "internal",
+        "permissions": [
+          "node.read"
+        ],
+        "workloadPermissions": []
+      },
+      "semantics": {
+        "postconditions": [],
+        "preconditions": [],
+        "processing": [
+          {
+            "id": "read",
+            "description": "IMU 스냅샷과 신선도 판정을 반환합니다.",
+            "transaction": "none"
+          }
+        ],
+        "sideEffects": []
+      },
+      "status": "stable",
+      "summary": "IMU 스냅샷과 신선도 판정을 반환합니다.",
+      "tags": [
+        "ros",
+        "imu"
+      ],
+      "title": "IMU",
+      "version": "1.0.0"
+    },
+    "lab.hanium.rdk-bridge.image-left.get": {
+      "authoring": {
+        "studioVisible": false,
+        "functionNode": false,
+        "group": "RDK",
+        "recommendedLabel": "좌측 카메라",
+        "keywords": [
+          "rdk",
+          "image-left"
+        ],
+        "outputPorts": []
+      },
+      "availability": {
+        "hostRoles": [
+          "leaf-node"
+        ],
+        "products": [
+          "leaf"
+        ],
+        "requiresProviderState": "ready",
+        "scopes": [
+          "local",
+          "node"
+        ]
+      },
+      "bindings": [
+        {
+          "type": "gateway-http",
+          "method": "GET",
+          "path": "/api/modules/lab.hanium.rdk-bridge/v1/image-left",
+          "successStatus": 200
+        }
+      ],
+      "category": "ros",
+      "description": "좌측 카메라 프레임을 9093 바이너리 패킷(uint32 LE 헤더길이 + JSON 헤더 + 픽셀) 그대로 반환합니다. 신선하지 않으면 503. (2단계)",
+      "errors": [
+        "RDK_BRIDGE_UNAVAILABLE"
+      ],
+      "execution": {
+        "cancellation": "before-dispatch",
+        "concurrency": {
+          "mode": "unlimited"
+        },
+        "confirmation": {
+          "mode": "none"
+        },
+        "idempotency": {
+          "mode": "safe"
+        },
+        "retry": {
+          "backoff": "exponential",
+          "maximumAttempts": 3,
+          "mode": "safe-only"
+        },
+        "risk": "read",
+        "timeoutMs": {
+          "default": 3000,
+          "maximum": 8000
+        }
+      },
+      "input": {
+        "schema": {
+          "type": "object",
+          "properties": {
+            "format": {
+              "type": "string",
+              "enum": [
+                "packet",
+                "json"
+              ],
+              "description": "packet: 9093 바이너리 그대로(로컬 Gateway). json: 같은 패킷을 packet_b64로 감싸 반환(Master relay는 바이너리 본문을 나르지 못한다)."
+            }
+          },
+          "additionalProperties": false
+        },
+        "examples": [
+          {
+            "name": "기본",
+            "value": {}
+          }
+        ]
+      },
+      "output": {
+        "mode": "immediate",
+        "schema": {
+          "type": "object"
+        },
+        "examples": [
+          {
+            "name": "예",
+            "value": {
+              "packet_b64": "..."
+            }
+          }
+        ]
+      },
+      "security": {
+        "audit": {
+          "required": false
+        },
+        "authentication": [
+          "workload-identity"
+        ],
+        "dataClassification": "internal",
+        "permissions": [
+          "node.read"
+        ],
+        "workloadPermissions": []
+      },
+      "semantics": {
+        "postconditions": [],
+        "preconditions": [],
+        "processing": [
+          {
+            "id": "read",
+            "description": "좌측 카메라 프레임을 9093 바이너리 패킷(uint32 LE 헤더길이 + JSON 헤더 + 픽셀) 그대로 반환합니다. 신선하지 않으면 503.",
+            "transaction": "none"
+          }
+        ],
+        "sideEffects": []
+      },
+      "status": "stable",
+      "summary": "좌측 카메라 프레임을 9093 바이너리 패킷(uint32 LE 헤더길이 + JSON 헤더 + 픽셀) 그대로 반환합니다. 신선하지 않으면 503.",
+      "tags": [
+        "ros",
+        "image-left"
+      ],
+      "title": "좌측 카메라",
+      "version": "1.0.0"
+    },
+    "lab.hanium.rdk-bridge.depth.get": {
+      "authoring": {
+        "studioVisible": false,
+        "functionNode": false,
+        "group": "RDK",
+        "recommendedLabel": "깊이",
+        "keywords": [
+          "rdk",
+          "depth"
+        ],
+        "outputPorts": []
+      },
+      "availability": {
+        "hostRoles": [
+          "leaf-node"
+        ],
+        "products": [
+          "leaf"
+        ],
+        "requiresProviderState": "ready",
+        "scopes": [
+          "local",
+          "node"
+        ]
+      },
+      "bindings": [
+        {
+          "type": "gateway-http",
+          "method": "GET",
+          "path": "/api/modules/lab.hanium.rdk-bridge/v1/depth",
+          "successStatus": 200
+        }
+      ],
+      "category": "ros",
+      "description": "깊이 프레임을 9093 바이너리 패킷(uint32 LE 헤더길이 + JSON 헤더 + 픽셀) 그대로 반환합니다. 신선하지 않으면 503. (2단계)",
+      "errors": [
+        "RDK_BRIDGE_UNAVAILABLE"
+      ],
+      "execution": {
+        "cancellation": "before-dispatch",
+        "concurrency": {
+          "mode": "unlimited"
+        },
+        "confirmation": {
+          "mode": "none"
+        },
+        "idempotency": {
+          "mode": "safe"
+        },
+        "retry": {
+          "backoff": "exponential",
+          "maximumAttempts": 3,
+          "mode": "safe-only"
+        },
+        "risk": "read",
+        "timeoutMs": {
+          "default": 3000,
+          "maximum": 8000
+        }
+      },
+      "input": {
+        "schema": {
+          "type": "object",
+          "properties": {
+            "format": {
+              "type": "string",
+              "enum": [
+                "packet",
+                "json"
+              ],
+              "description": "packet: 9093 바이너리 그대로(로컬 Gateway). json: 같은 패킷을 packet_b64로 감싸 반환(Master relay는 바이너리 본문을 나르지 못한다)."
+            }
+          },
+          "additionalProperties": false
+        },
+        "examples": [
+          {
+            "name": "기본",
+            "value": {}
+          }
+        ]
+      },
+      "output": {
+        "mode": "immediate",
+        "schema": {
+          "type": "object"
+        },
+        "examples": [
+          {
+            "name": "예",
+            "value": {
+              "packet_b64": "..."
+            }
+          }
+        ]
+      },
+      "security": {
+        "audit": {
+          "required": false
+        },
+        "authentication": [
+          "workload-identity"
+        ],
+        "dataClassification": "internal",
+        "permissions": [
+          "node.read"
+        ],
+        "workloadPermissions": []
+      },
+      "semantics": {
+        "postconditions": [],
+        "preconditions": [],
+        "processing": [
+          {
+            "id": "read",
+            "description": "깊이 프레임을 9093 바이너리 패킷(uint32 LE 헤더길이 + JSON 헤더 + 픽셀) 그대로 반환합니다. 신선하지 않으면 503.",
+            "transaction": "none"
+          }
+        ],
+        "sideEffects": []
+      },
+      "status": "stable",
+      "summary": "깊이 프레임을 9093 바이너리 패킷(uint32 LE 헤더길이 + JSON 헤더 + 픽셀) 그대로 반환합니다. 신선하지 않으면 503.",
+      "tags": [
+        "ros",
+        "depth"
+      ],
+      "title": "깊이",
+      "version": "1.0.0"
+    },
+    "lab.hanium.rdk-bridge.estop.post": {
+      "authoring": {
+        "studioVisible": false,
+        "functionNode": false,
+        "group": "RDK",
+        "recommendedLabel": "긴급 정지 요청",
+        "keywords": [
+          "rdk",
+          "estop"
+        ],
+        "outputPorts": []
+      },
+      "availability": {
+        "hostRoles": [
+          "leaf-node"
+        ],
+        "products": [
+          "leaf"
+        ],
+        "requiresProviderState": "ready",
+        "scopes": [
+          "local",
+          "node"
+        ]
+      },
+      "bindings": [
+        {
+          "type": "gateway-http",
+          "method": "POST",
+          "path": "/api/modules/lab.hanium.rdk-bridge/v1/estop",
+          "successStatus": 200
+        }
+      ],
+      "category": "ros",
+      "description": "정지 요청을 로봇 컨트롤러 어댑터로 전달하고 수신 확인(ack)을 반환합니다. 정지 실행은 MCU 몫입니다.",
+      "errors": [
+        "RDK_BRIDGE_UNAVAILABLE"
+      ],
+      "execution": {
+        "cancellation": "before-dispatch",
+        "concurrency": {
+          "mode": "unlimited"
+        },
+        "confirmation": {
+          "mode": "none"
+        },
+        "idempotency": {
+          "mode": "safe"
+        },
+        "retry": {
+          "mode": "never",
+          "maximumAttempts": 1
+        },
+        "risk": "dangerous",
+        "timeoutMs": {
+          "default": 5000,
+          "maximum": 8000
+        }
+      },
+      "input": {
+        "schema": {
+          "type": "object",
+          "properties": {
+            "reason": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          "additionalProperties": false
+        },
+        "examples": [
+          {
+            "name": "기본",
+            "value": {}
+          }
+        ]
+      },
+      "output": {
+        "mode": "immediate",
+        "schema": {
+          "type": "object"
+        },
+        "examples": [
+          {
+            "name": "예",
+            "value": {
+              "seq": 1,
+              "delivered": true,
+              "queued": false
+            }
+          }
+        ]
+      },
+      "security": {
+        "audit": {
+          "required": false
+        },
+        "authentication": [
+          "workload-identity"
+        ],
+        "dataClassification": "internal",
+        "permissions": [
+          "node.control"
+        ],
+        "workloadPermissions": []
+      },
+      "semantics": {
+        "postconditions": [],
+        "preconditions": [],
+        "processing": [
+          {
+            "id": "read",
+            "description": "정지 요청을 로봇 컨트롤러 어댑터로 전달하고 수신 확인(ack)을 반환합니다. 정지 실행은 MCU 몫입니다.",
+            "transaction": "none"
+          }
+        ],
+        "sideEffects": []
+      },
+      "status": "stable",
+      "summary": "정지 요청을 로봇 컨트롤러 어댑터로 전달하고 수신 확인(ack)을 반환합니다. 정지 실행은 MCU 몫입니다.",
+      "tags": [
+        "ros",
+        "estop"
+      ],
+      "title": "긴급 정지 요청",
+      "version": "1.0.0"
+    }
+  },
+  "provider": {
+    "hostRoles": [
+      "leaf-node"
+    ],
+    "id": "lab.hanium.rdk-bridge",
+    "kind": "module",
+    "moduleId": "lab.hanium.rdk-bridge",
+    "name": "Rdk Bridge",
+    "ownership": {
+      "source": "module/leaf/lab.hanium.rdk-bridge"
+    },
+    "products": [
+      "leaf"
+    ],
+    "version": "0.1.0"
+  },
+  "schemaVersion": "1.0.0",
+  "summary": "탐사 로봇 ROS 2 센서를 Terra 리소스로 노출하고 E-STOP 요청을 전달합니다.",
+  "title": "RDK Bridge API",
+  "permissions": {
+    "node.read": {
+      "title": "노드 조회",
+      "description": "센서 스냅샷과 상태를 읽습니다. 부수효과가 없습니다.",
+      "risk": "read"
+    },
+    "node.control": {
+      "title": "노드 제어",
+      "description": "긴급 정지 요청을 로봇 컨트롤러로 전달합니다.",
+      "risk": "dangerous"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 2,
+  "id": "lab.hanium.rdk-bridge",
+  "version": "0.1.0",
+  "kind": "service",
+  "name": "RDK Bridge",
+  "description": "ROS 2 sensor resources (status/scan/map/pose/imu/image_left/depth) and E-STOP forwarding for the exploration robot.",
+  "compatibility": {
+    "products": [
+      "leaf"
+    ],
+    "hostRoles": [
+      "leaf-node"
+    ],
+    "os": [
+      "linux",
+      "windows"
+    ]
+  },
+  "entrypoints": {
+    "process": {
+      "linux-amd64": "bin/linux-amd64/terra-rdk-bridge",
+      "linux-arm64": "bin/linux-arm64/terra-rdk-bridge",
+      "windows-amd64": "bin/windows-amd64/terra-rdk-bridge.exe"
+    }
+  },
+  "provides": {
+    "capabilities": [
+      {
+        "id": "lab.hanium.rdk-bridge",
+        "version": "0.1.0"
+      }
+    ]
+  },
+  "contracts": {
+    "api": "contracts/api/terra-api.json"
+  },
+  "readiness": {
+    "operationId": "lab.hanium.rdk-bridge.status.get",
+    "versionRange": ">=1.0.0 <2.0.0",
+    "timeoutMs": 15000
+  },
+  "update": {
+    "strategy": "start-before-stop",
+    "drainTimeoutMs": 30000,
+    "rollback": true
+  },
+  "contributions": {
+    "svi": {
+      "resources": true
+    }
+  },
+  "permissions": {
+    "storage": [
+      "module-data"
+    ]
+  }
+}
